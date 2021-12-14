@@ -5,13 +5,14 @@ import Contacts from './Contacts'
 import NewContactModal from './NewContactModal'
 import NewConversationModal from './NewConversationModal'
 
-const CONVERSATIONS_KEY = 'conversations'
-const CONTACTS_KEY = 'contacts'
+const TABS_KEYS = ['Conversations', 'Contacts']
+
+
 
 export default function Sidebar({ id }) {
-  const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY)
+  const [activeKey, setActiveKey] = useState(TABS_KEYS[0].toLowerCase())
   const [modalOpen, setModalOpen] = useState(false)
-  const conversationsOpen = activeKey === CONVERSATIONS_KEY
+  const conversationsOpen = activeKey === TABS_KEYS[0].toLowerCase()
   
   function closeModal() {
     setModalOpen(false)
@@ -21,18 +22,15 @@ export default function Sidebar({ id }) {
     <div style={{ width: '250px' }} className="d-flex flex-column">
       <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
         <Nav variant="tabs" className="justify-content-center">
-          <Nav.Item>
-            <Nav.Link eventKey={CONVERSATIONS_KEY}>Conversations</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey={CONTACTS_KEY}>Contacts</Nav.Link>
-          </Nav.Item>
+          {TABS_KEYS.map((itemKey) => <Nav.Item key={itemKey.toLowerCase()}>
+            <Nav.Link eventKey={itemKey.toLowerCase()} >{itemKey}</Nav.Link>
+          </Nav.Item> )}
         </Nav>
         <Tab.Content className="border-right overflow-auto flex-grow-1">
-          <Tab.Pane eventKey={CONVERSATIONS_KEY}>
+          <Tab.Pane eventKey={TABS_KEYS[0].toLowerCase()} key={TABS_KEYS[0].toLowerCase()}>
             <Conversations />
           </Tab.Pane>
-          <Tab.Pane eventKey={CONTACTS_KEY}>
+          <Tab.Pane eventKey={TABS_KEYS[1].toLowerCase()} key={TABS_KEYS[1].toLowerCase()}>
             <Contacts />
           </Tab.Pane>
         </Tab.Content>
@@ -40,7 +38,7 @@ export default function Sidebar({ id }) {
           Your Id: <span className="text-muted">{id}</span>
         </div>
         <Button onClick={() => setModalOpen(true)} className="rounded-0">
-          New {conversationsOpen ? 'Conversation' : 'Contact'}
+          New {conversationsOpen ? TABS_KEYS[0].toLowerCase() : TABS_KEYS[1].toLowerCase()}
         </Button>
       </Tab.Container>
 
