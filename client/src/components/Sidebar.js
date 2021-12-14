@@ -23,7 +23,7 @@ export default function Sidebar({ id }) {
       <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
         <Nav variant="tabs" className="justify-content-center">
           {TABS_KEYS.map((itemKey) => <Nav.Item key={itemKey.toLowerCase()}>
-            <Nav.Link eventKey={itemKey.toLowerCase()} >{itemKey}</Nav.Link>
+            <Nav.Link eventKey={itemKey.toLowerCase()} className={activeKey !== itemKey.toLowerCase()?'text-secondary' : 'text-primary'} >{itemKey}</Nav.Link>
           </Nav.Item> )}
         </Nav>
         <Tab.Content className="border-right overflow-auto flex-grow-1">
@@ -35,7 +35,7 @@ export default function Sidebar({ id }) {
           </Tab.Pane>
         </Tab.Content>
         <div className="p-2 border-top border-right small">
-          Your Id: <span className="text-muted">{id}</span>
+          Your Id: <p className="font-weight-light text-muted font-italic">{id}</p>
         </div>
         <Button onClick={() => setModalOpen(true)} className="rounded-0">
           New {conversationsOpen ? TABS_KEYS[0].toLowerCase() : TABS_KEYS[1].toLowerCase()}

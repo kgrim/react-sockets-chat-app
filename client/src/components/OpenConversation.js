@@ -34,7 +34,7 @@ export default function OpenConversation() {
                 className={`my-1 d-flex flex-column ${message.fromMe ? 'align-self-end align-items-end' : 'align-items-start'}`}
               >
                 <div
-                  className={`rounded px-2 py-1 ${message.fromMe ? 'bg-primary text-white' : 'border'}`}>
+                  className={`rounded px-2 py-1 ${message.fromMe ?  'border border-primary text-primary' : 'bg-primary text-white'}`}>
                   {message.text}
                 </div>
                 <div className={`text-muted small ${message.fromMe ? 'text-right' : ''}`}>

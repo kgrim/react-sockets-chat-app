@@ -10,6 +10,7 @@ export default function Contacts() {
       {contacts.map(contact => (
         <ListGroup.Item key={contact.id}>
           {contact.name}
+          <p className='small font-weight-light text-muted font-italic'>{contact.id}</p>
         </ListGroup.Item>
       ))}
     </ListGroup>
