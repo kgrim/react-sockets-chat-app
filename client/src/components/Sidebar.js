@@ -26,6 +26,7 @@ export default function Sidebar({ id }) {
             <Nav.Link eventKey={itemKey.toLowerCase()} className={activeKey !== itemKey.toLowerCase()?'text-secondary' : 'text-primary'} >{itemKey}</Nav.Link>
           </Nav.Item> )}
         </Nav>
+
         <Tab.Content className="border-right overflow-auto flex-grow-1">
           <Tab.Pane eventKey={TABS_KEYS[0].toLowerCase()} key={TABS_KEYS[0].toLowerCase()}>
             <Conversations />
@@ -34,14 +35,16 @@ export default function Sidebar({ id }) {
             <Contacts />
           </Tab.Pane>
         </Tab.Content>
+
         <div className="p-2 border-top border-right small">
           Your Id: <p className="font-weight-light text-muted font-italic">{id}</p>
         </div>
-        {console.log(Boolean(contacts))}
+
         <Button onClick={() => setModalOpen(true)} disabled={conversationsOpen && contacts.length === 0? "disabled" : ""  } className="rounded-0">
           {conversationsOpen && contacts.length === 0? "No Contacts":(`New ${conversationsOpen ? TABS_KEYS[0].toLowerCase() : TABS_KEYS[1].toLowerCase()}`)}
         </Button>
       </Tab.Container>
+
       <Modal show={modalOpen} onHide={closeModal}>
         {conversationsOpen ?
           <NewConversationModal closeModal={closeModal} /> :
