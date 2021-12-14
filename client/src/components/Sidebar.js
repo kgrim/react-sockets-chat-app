@@ -4,15 +4,15 @@ import Conversations from './Conversations'
 import Contacts from './Contacts'
 import NewContactModal from './NewContactModal'
 import NewConversationModal from './NewConversationModal'
+import { useContacts } from '../contexts/ContactsProvider'
 
 const TABS_KEYS = ['Conversations', 'Contacts']
-
-
 
 export default function Sidebar({ id }) {
   const [activeKey, setActiveKey] = useState(TABS_KEYS[0].toLowerCase())
   const [modalOpen, setModalOpen] = useState(false)
   const conversationsOpen = activeKey === TABS_KEYS[0].toLowerCase()
+  const { contacts } = useContacts()
   
   function closeModal() {
     setModalOpen(false)
@@ -37,11 +37,11 @@ export default function Sidebar({ id }) {
         <div className="p-2 border-top border-right small">
           Your Id: <p className="font-weight-light text-muted font-italic">{id}</p>
         </div>
-        <Button onClick={() => setModalOpen(true)} className="rounded-0">
-          New {conversationsOpen ? TABS_KEYS[0].toLowerCase() : TABS_KEYS[1].toLowerCase()}
+        {console.log(Boolean(contacts))}
+        <Button onClick={() => setModalOpen(true)} disabled={conversationsOpen && contacts.length === 0? "disabled" : ""  } className="rounded-0">
+          {conversationsOpen && contacts.length === 0? "No Contacts":(`New ${conversationsOpen ? TABS_KEYS[0].toLowerCase() : TABS_KEYS[1].toLowerCase()}`)}
         </Button>
       </Tab.Container>
-
       <Modal show={modalOpen} onHide={closeModal}>
         {conversationsOpen ?
           <NewConversationModal closeModal={closeModal} /> :
