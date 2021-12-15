@@ -5,15 +5,15 @@ import NewContactModal from './NewContactModal'
 
 export default function OpenConversation() {
   const [text, setText] = useState('')
+  const [currentAddingId, setCurrentAddingId] = useState('')
   const setRef = useCallback(node => {
     if (node) {
       node.scrollIntoView({ smooth: true })
     }
   }, [])
-
   const { sendMessage, selectedConversation } = useConversations()
-
   const [modalOpen, setModalOpen] = useState(false)
+
   function closeModal() {
     setModalOpen(false)
   }
@@ -22,7 +22,7 @@ export default function OpenConversation() {
     return (
       <Fragment key={id}> 
         {id}
-        <Button className="text-sm bg-success text-uppercase border-success font-bold mx-2" style={{fontSize: "11px"}} onClick={() => setModalOpen(true)}>Add</Button>
+        <Button className="text-sm bg-success text-uppercase border-success font-bold mx-2" style={{ fontSize: "11px" }} onClick={() => { setModalOpen(true); setCurrentAddingId(id)}}>Add</Button>
       </Fragment>)
 }
 
@@ -78,8 +78,9 @@ export default function OpenConversation() {
           </Form.Group>
         </Form>
       
-        <Modal show={modalOpen} onHide={closeModal}>
-          <NewContactModal closeModal={closeModal} />
+      <Modal show={modalOpen} onHide={closeModal}>
+            
+          <NewContactModal closeModal={closeModal} currentAddingId={currentAddingId} />
         </Modal>
       </div>
   )
